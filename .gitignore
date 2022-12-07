@@ -296,6 +296,8 @@ secring.*
 
 ## Certificate
 *.crt
+*.key
+*.ca-bundle
 
 ## Certificate Sign Request
 *.csr

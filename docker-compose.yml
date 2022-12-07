@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  nodeserver:
+    build:
+      context: .
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      VIRTUAL_PORT: ${VIRTUAL_PORT}
+    restart: unless-stopped
+  nginx-proxy:
+    container_name: nginx-proxy
+    build:
+      context: ./nginx
+    volumes:
+      - /etc/nginx/vhost.d
+      - /etc/acme.sh
+      - /usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - '80:80'
+      - '443:443'
+    restart: unless-stopped
